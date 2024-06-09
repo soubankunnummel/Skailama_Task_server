@@ -24,6 +24,10 @@ export const createWidget = async (req, res) => {
 if(req.file) {
    uploadedImage = req.image
 }
+
+await Widget.deleteMany({});
+
+
   const newWidget = new Widget({
     name,
     welcomeMessage,
