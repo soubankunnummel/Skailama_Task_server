@@ -25,7 +25,6 @@ export const createUser = async (req, res) => {
 /// update user name
 
 export const update = async (req, res) => {
-  console.log(req.body)
   const user = await User.findByIdAndUpdate(req.user._id, req.body, {
     new: true,
   });
@@ -39,5 +38,5 @@ export const update = async (req, res) => {
 export const getUser = async (req, res) => {
   const user = await User.findById(req.user._id);
   if (!user) return res.status(404).json({ message: "User not found" });
-  res.status(200).json(user);
+  res.status(200).json(user); 
 };
