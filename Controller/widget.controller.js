@@ -25,27 +25,48 @@ if(req.file) {
    uploadedImage = req.image
 }
 
-await Widget.deleteMany({});
+// await Widget.deleteMany({});
+  
+   const updateWidget = await Widget.findOneAndUpdate(
+    {},
+    {
+      $set: {
+        name,
+        welcomeMessage,
+        placeholder,
+        primaryColor,
+        fontColor,
+        fontSize,
+        chatHeight,
+        chatIconSize,
+        distanceFromBottom,
+        horizontalDistance,
+        positionOnScreen,
+        uploadedImage
+      },
+    },
+    { new: true }
+  );
 
+  // const newWidget = new Widget({
+  //   name,
+  //   welcomeMessage,
+  //   placeholder,
+  //   primaryColor,
+  //   fontColor,
+  //   fontSize,
+  //   chatHeight,
+  //   chatIconSize,
+  //   distanceFromBottom,
+  //   horizontalDistance,
+  //   positionOnScreen,
+  //   uploadedImage:uploadedImage
+  // });
 
-  const newWidget = new Widget({
-    name,
-    welcomeMessage,
-    placeholder,
-    primaryColor,
-    fontColor,
-    fontSize,
-    chatHeight,
-    chatIconSize,
-    distanceFromBottom,
-    horizontalDistance,
-    positionOnScreen,
-    uploadedImage:uploadedImage
-  });
+  // await newWidget.save();
 
-  await newWidget.save();
-
-  res.status(201).json(newWidget);
+  
+  res.status(201).json(updateWidget);
 };
 
 

@@ -1,9 +1,13 @@
 import User from "../Models/user.model.js";
 import jwt from "jsonwebtoken";
 
+import validator from "validator";
+
 export const createUser = async (req, res) => {
   const { email } = req.body;
-  if (!email) return res.status(400).json({ message: "Email is required" });
+  if (!validator.isEmail(email)) { 
+    return res.status(400).json({ message: "Invalid email" });
+  }
 
   // check if user already exists..  then gest login
   const existingUser = await User.findOne({ email: email });
@@ -16,11 +20,10 @@ export const createUser = async (req, res) => {
   const newUser = new User({ email });
   const token = jwt.sign({ email }, process.env.JWT_SECRET, {
     expiresIn: "1d",
-  });
+  }); 
   await newUser.save();
   res.status(201).json({ user: newUser, token: token });
 };
-
  
 /// update user name
 
